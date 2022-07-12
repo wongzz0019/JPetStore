@@ -7,10 +7,6 @@ from common.base import Base
 
 class Login(Base):
 
-    @allure.step('进入登录页面')
-    def find_sign_in(self):
-        return self.by_link_text('Sign In')
-
     @allure.step('输入username')
     def find_username(self):
         return self.by_name('username')
@@ -23,14 +19,18 @@ class Login(Base):
     def find_submit(self):
         return self.by_name('signon')
 
+    @allure.step('进入注册面')
+    def find_register(self):
+        return self.by_link_text('Register Now!')
+
     @allure.step('点击退出登录')
     def find_sign_out(self):
         return self.by_link_text('Sign Out')
 
     def login(self, username, pwd):
         # self.open_url(url)
-        # 进入登录页
-        self.find_sign_in().click()
+        # # 进入登录页
+        # self.find_sign_in().click()
         # username
         self.find_username().clear()
         self.find_username().send_keys(username)

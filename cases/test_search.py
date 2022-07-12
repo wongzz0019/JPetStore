@@ -4,24 +4,34 @@ from time import sleep
 import allure
 import pytest
 
+from common import driver
 from common.load_yaml import load_yaml
+from pages.page_index import Index
 from pages.page_search import Search
 
 
 @allure.feature('商品查询')
 class TestSearch():
 
+    def setup_class(self):
+        self.driver = driver.Driver()
+        self.driver.get_driver()
+        self.index = Index()
+        self.search = Search()
+
+    def teardown_class(self):
+        self.driver.quit_driver()
+
     @allure.title('商品查询成功')
     @allure.story('商品查询成功')
     @pytest.mark.parametrize('data', load_yaml('../data/search.yaml'))
     def test_search(self, data):
-        search = Search()
-        search.open_url('https://petstore.octoperf.com/actions/Catalog.action')
-        search.find_keyword().send_keys(data['name'])
+
+        self.index.find_keyword().clear()
+        self.index.find_keyword().send_keys(data['name'])
         # sleep(2)
-        search.find_search().click()
-        assert str(data['name']) == search.find_product_name()
-        search.close()
+        self.index.find_search().click()
+        assert str(data['name']) == self.search.find_product_name()
 
 
 if __name__ == '__main__':

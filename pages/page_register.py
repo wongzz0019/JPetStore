@@ -5,15 +5,8 @@ from selenium.webdriver.support.select import Select
 from common.base import Base
 
 
+# 注册页面
 class Register(Base):
-    # 进入注册面
-    def find_sign_in(self):
-        return self.by_link_text('Sign In')
-
-    # 进入注册面
-    def find_register(self):
-        return self.by_link_text('Register Now!')
-
     # userid
     def find_userid(self):
         return self.by_name('username')

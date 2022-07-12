@@ -7,11 +7,11 @@ from common.base import Base
 # 登录 - 选商品 - 点击商品 - 加入购物车 - 选数量 - 更新购物车 - 付款 - 编辑订单信息 - 确认信息 - ok
 class Buy(Base):
 
-    # 选大种类
-    # 1:Fish; 2:Dogs; 3:Reptiles; 4:Cats; 5:Birds
-    @allure.step('选择大种类')
-    def find_product(self, number):
-        return self.by_xpath('//*[@id="QuickLinks"]/a[{}]'.format(number))
+    # # 选大种类
+    # # 1:Fish; 2:Dogs; 3:Reptiles; 4:Cats; 5:Birds
+    # @allure.step('选择大种类')
+    # def find_product(self, number):
+    #     return self.by_xpath('//*[@id="QuickLinks"]/a[{}]'.format(number))
 
     # 选择小种类
     @allure.step('选择小种类')
@@ -24,10 +24,10 @@ class Buy(Base):
         return self.by_link_text(item_id)
 
     # 加购物车
-    # 2:第一个商品，3：第二个商品 ....
+    # item_id宠物id
     @allure.step('加购物车')
-    def find_add_cart(self, number):
-        return self.by_xpath('//*[@id="Catalog"]/table/tbody/tr[{}]/td[5]/a'.format(number))
+    def find_add_cart(self, item_id):
+        return self.by_css_selector("a[href$='workingItemId={}']".format(item_id))
 
     # 定位数量输入框
     @allure.step('输入商品数量')

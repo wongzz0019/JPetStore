@@ -6,6 +6,7 @@ import pytest
 
 from common import driver
 from pages.page_buy import Buy
+from pages.page_index import Index
 from pages.page_login import Login
 
 
@@ -17,6 +18,7 @@ class TestBuy():
         self.driver.get_driver()
         self.login = Login()
         self.buy = Buy()
+        self.index = Index()
 
     def teardown_class(self):
         self.driver.quit_driver()
@@ -25,20 +27,20 @@ class TestBuy():
     @allure.story('登录购买商品')
     def test_buy(self):
         # 登录
-        self.login.find_sign_in().click()
+        self.index.find_sign_in().click()
         self.login.find_username().send_keys('a333333')
         self.login.find_pwd().clear()
         self.login.find_pwd().send_keys('333333')
         self.login.find_submit().click()
         # 选商品
-        self.buy.find_product(1).click()
+        self.index.find_pet('BIRDS').click()
         sleep(2)
-        self.buy.find_product_id('FI-SW-01').click()
+        self.buy.find_product_id('AV-CB-01').click()
         # 加购物车
-        self.buy.find_add_cart(3).click()
+        self.buy.find_add_cart('EST-18').click()
         # 数量选择
-        self.buy.find_quantity('EST-2').clear()
-        self.buy.find_quantity('EST-2').send_keys(4)
+        self.buy.find_quantity('EST-18').clear()
+        self.buy.find_quantity('EST-18').send_keys(4)
         # 更新
         self.buy.find_update_cart().click()
         sleep(2)

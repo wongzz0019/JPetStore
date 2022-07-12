@@ -7,6 +7,7 @@ import pytest
 from common import driver
 from common.driver import Driver
 from common.load_yaml import load_yaml
+from pages.page_index import Index
 from pages.page_login import Login
 
 
@@ -16,6 +17,7 @@ class Test_Login():
     def setup_class(self):
         self.driver = driver.Driver()
         self.driver.get_driver()
+        self.index = Index()
         self.login = Login()
 
     def teardown_class(self):
@@ -24,8 +26,9 @@ class Test_Login():
     @allure.title('登录商品网站')
     @pytest.mark.parametrize('data', load_yaml('../data/login.yaml'))
     def test_login(self, data):
+        self.index.find_sign_in().click()
         self.login.login(data['username'], data['pwd'])
-        print(time.thread_time())
+
 
 
 if __name__ == '__main__':

@@ -4,6 +4,7 @@ from time import sleep
 import pytest
 
 from common.driver import Driver
+from pages.page_index import Index
 from pages.page_login import Login
 from pages.page_my_account import MyAccount
 from pages.page_my_orders import Orders
@@ -14,6 +15,7 @@ class TestAccount():
     def setup_class(self):
         self.driver = Driver()
         self.driver.get_driver()
+        self.index = Index()
         self.login = Login()
         self.account = MyAccount()
         self.orders = Orders()
@@ -23,7 +25,7 @@ class TestAccount():
 
     def test_select_orders(self):
         # 打开网址并登录
-        self.login.find_sign_in().click()
+        self.index.find_sign_in().click()
         self.login.find_username().send_keys('a333333')
         self.login.find_pwd().clear()
         self.login.find_pwd().send_keys('333333')
